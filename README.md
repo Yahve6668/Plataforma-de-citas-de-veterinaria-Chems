@@ -1,2 +1,4 @@
 # Plataforma-de-citas-de-veterinaria-Chems
 Este es un proyecto que elabore como proyecto para la materia TDAW en el trimestre 22P de la UAM , es una plataforma web para agendar citas en una veterinaria asi mismo es un consultor de las misma para los veterinarios que este logeados en este .
+# Descripcion 
+En este proyecto, puse a prueba mis conocimientos en tecnología web, empleando JavaScript, PHP, HTML, Ajax, así como solicitudes POST, GET y XMLHttpRequest (XMLHttp). El enfoque principal fue la funcionalidad, y no se le dio importancia al diseño estético. La aplicación se centra en la interacción cliente-servidor, permitiendo a los usuarios realizar acciones y recibir respuestas en tiempo real sin recargar la página. Aunque el diseño es rudimentario, el proyecto destaca por la implementación efectiva de tecnologías web para lograr sus objetivos
