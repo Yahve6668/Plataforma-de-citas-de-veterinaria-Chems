@@ -1,0 +1,27 @@
+<html>
+<head>
+  <script type="text/javascript" src="user.js"></script>
+</head>
+<body  onload="llenaForCi()" >
+    <form>
+    <label>Nombre </label><br><input id="nombreF" type="text"><br>
+    <label>Nombre de la mascota</label><br></be><input id="nombreMas"type="text"><br>
+    <labe>Seleccione el tipo de mascota</label><br>
+    <select id="tipoMas">
+      <option value="0">Seleccione el tipo</option>
+    </select><br>
+    <labe>Seleccione el tipo de Cita</label><br>
+    <select id="tipoCita">
+      <option value="0">Seleccione el tipo Cita</option>
+    </select><br>
+    <labe>Seleccione el Doctor</label><br>
+    <select id="tipoDoc">
+      <option value="0">Seleccione el Doctor</option>
+    </select><br>
+    
+    <label>Selecione el dia de la cita</label><br><input id="fec" type="date"><br>
+    <button type="button" onclick="valida();">Registrar cita</button>
+    <button type="button" onclick="redirecciona('indexhome_user.html')">Regresar</button>
+    </form>
+</body>
+</html>

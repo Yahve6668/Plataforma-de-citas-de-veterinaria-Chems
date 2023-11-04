@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paciente</title>
+
+  <style>
+
+
+
+  </style>
+
+  <!-- Código JavaScript "IMPORTANTE PONER DEFER" -->
+  <script defer> 
+	//error_reporting(E_ERROR| E_PARSE);
+  
+	async function consultaUsuario(){
+		var response= await fetch('recuperaUsuario.php');
+		if(response.ok){
+			var datos= await response.text();
+			var data= JSON.parse(datos);
+			return data;
+		}
+	}
+
+	function mostrarDatos(data){
+	
+		//var tabla=document.getElementById('bloqueProfesor');	
+
+		var tabla = document.createElement("table");
+
+
+		var thead = document.createElement("thead");
+		let fila_titulo = document.createElement('tr');
+let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdUsuario";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Nombre del usuario";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Correo del usuario";
+let campo_4 = document.createElement('th');
+campo_4.innerHTML = "Contraseña del usuario";
+let campo_5 = document.createElement('th');
+campo_5.innerHTML = "Tipo de usuario";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+fila_titulo.appendChild(campo_4);
+fila_titulo.appendChild(campo_5);
+		thead.appendChild(fila_titulo);
+
+
+		var tbody = document.createElement("tbody");
+			for(var i=0;i<data.length;i++){
+				let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idUsuario;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].nombreUsuario;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].correoUsuario;
+let fila_datos_campo_4 = document.createElement('td');
+fila_datos_campo_4.innerHTML = data[i].contraseñaUsuario;
+let fila_datos_campo_5 = document.createElement('td');
+fila_datos_campo_5.innerHTML = data[i].tipoUsuario.descripcionTipoCita;
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+fila_datos.appendChild(fila_datos_campo_4);
+fila_datos.appendChild(fila_datos_campo_5);
+console.log(data[i]);
+			tbody.appendChild(fila_datos);
+			
+		}
+		
+
+		tabla.appendChild(thead);
+		tabla.appendChild(tbody);
+		tabla.setAttribute("border", "4");
+		tabla.setAttribute("align", "center");
+// Adding the entire table to the body tag
+document.getElementById('bloqueProfesor').appendChild(tabla);	}
+
+
+function mostrarDatos2(data){
+	
+	//var tabla=document.getElementById('bloqueProfesor');	
+
+	var tabla = document.createElement("table");
+
+
+	var thead = document.createElement("thead");
+	let fila_titulo = document.createElement('tr');
+let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdUsuario";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Nombre del usuario";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Correo del usuario";
+let campo_4 = document.createElement('th');
+campo_4.innerHTML = "Contraseña del usuario";
+let campo_5 = document.createElement('th');
+campo_5.innerHTML = "Tipo de usuario";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+fila_titulo.appendChild(campo_4);
+fila_titulo.appendChild(campo_5);
+	thead.appendChild(fila_titulo);
+
+
+	var tbody = document.createElement("tbody");
+	for(var i=0;i<data.length;i++){
+		if(document.getElementById("idgeneral").value  == data[i].nombreUsuario && document.getElementById("idgeneral").value !=null){
+
+			let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idUsuario;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].nombreUsuario;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].correoUsuario;
+let fila_datos_campo_4 = document.createElement('td');
+fila_datos_campo_4.innerHTML = data[i].contraseñaUsuario;
+let fila_datos_campo_5 = document.createElement('td');
+fila_datos_campo_5.innerHTML = data[i].tipoUsuario.descripcionTipoCita;
+
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+fila_datos.appendChild(fila_datos_campo_4);
+fila_datos.appendChild(fila_datos_campo_5);
+console.log(data[i]);
+
+		tbody.appendChild(fila_datos);
+		}
+		
+	}
+	
+
+	tabla.appendChild(thead);
+	tabla.appendChild(tbody);
+	tabla.setAttribute("border", "2");
+	tabla.setAttribute("align", "center");
+// Adding the entire table to the body tag
+document.getElementById('bloqueProfesor').appendChild(tabla);	}
+
+
+	function recuperaUsuario(){
+		document.getElementById("bloqueProfesor").innerHTML = "";
+		if(document.getElementById("idgeneral").value !=""){
+
+			consultaUsuario().then(data=>mostrarDatos2(data)).catch(function(err){console.log(err);});
+
+		}else{
+
+			consultaUsuario().then(data=>mostrarDatos(data)).catch(function(err){console.log(err);});
+		}
+			
+	}
+	
+  </script>
+
+</head>
+
+<body onload="recuperaUsuario();">
+
+
+
+  <!-- Main -->
+  <main>
+    <div class="fPaciente">
+      <!-- Video-Formulario -->
+    <div class="card mx-auto" style="background: transparent; border: none">
+       <h5>Buscar Usuarios<h5>
+    </div>
+    
+    <div id="">
+		<form id="frmajax" method="POST">
+			<fieldset>
+			<label>Nombre del Usuario:</label><input type="text" id="idgeneral" name="idgeneral"/>
+			<button type="button" onClick="recuperaUsuario();" id="buscar" >Buscar</button>
+			</fieldset><!-- recuperaUsuario -->
+		</form>
+	</div>
+	<div id="bloqueProfesor" class="tabla">
+<h5>hhh</h5>
+	</div>
+
+	<!--<table align="center"-->
+  </main>
+
+</body>
+
+</html>

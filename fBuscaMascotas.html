@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paciente</title>
+
+  <style>
+
+
+
+  </style>
+
+  <!-- Código JavaScript "IMPORTANTE PONER DEFER" -->
+  <script defer> 
+	//error_reporting(E_ERROR| E_PARSE);
+  
+	async function consultaMascotas(){
+		var response= await fetch('recuperaMacotas.php');
+		if(response.ok){
+			var datos= await response.text();
+			var data= JSON.parse(datos);
+			return data;
+		}
+	}
+  
+	function mostrarDatos(data){
+	
+	//var tabla=document.getElementById('bloqueMascota');	
+
+	var tabla = document.createElement("table");
+
+
+	var thead = document.createElement("thead");
+	let fila_titulo = document.createElement('tr');
+let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdMascota";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Nombre de la mascota";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Tipo de mascota";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+	thead.appendChild(fila_titulo);
+
+
+	var tbody = document.createElement("tbody");
+	for(var i=0;i<data.length;i++){
+		
+		let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idMascota;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].descripcionMascota;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].tipoMascota.descripcion;
+
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+
+
+		console.log(data[i]);
+
+		tbody.appendChild(fila_datos);
+	}
+	
+
+	tabla.appendChild(thead);
+	tabla.appendChild(tbody);
+	tabla.setAttribute("border", "2");
+	tabla.setAttribute("align", "center");
+// Adding the entire table to the body tag
+document.getElementById('bloqueMascota').appendChild(tabla);	}
+
+
+
+
+function mostrarDatos2(data){
+	
+	//var tabla=document.getElementById('bloqueMascota');	
+
+	var tabla = document.createElement("table");
+
+
+	var thead = document.createElement("thead");
+	let fila_titulo = document.createElement('tr');
+let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdMascota";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Nombre de la mascota";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Tipo de mascota";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+	thead.appendChild(fila_titulo);
+
+
+	var tbody = document.createElement("tbody");
+	for(var i=0;i<data.length;i++){
+		if(document.getElementById("idgeneral").value  == data[i].idMascota && document.getElementById("idgeneral").value !=null){
+		
+		let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idMascota;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].descripcionMascota;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].tipoMascota.descripcion;
+
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+
+
+		console.log(data[i]);
+
+		tbody.appendChild(fila_datos);
+	}
+
+}
+	
+
+	tabla.appendChild(thead);
+	tabla.appendChild(tbody);
+	tabla.setAttribute("border", "2");
+	tabla.setAttribute("align", "center");
+// Adding the entire table to the body tag
+document.getElementById('bloqueMascota').appendChild(tabla);	}
+
+
+  
+	function recuperaMascotas(){
+
+
+			document.getElementById("bloqueMascota").innerHTML = "";
+			console.log(document.getElementById("idgeneral").value);
+		if(document.getElementById("idgeneral").value !=""){
+
+			consultaMascotas().then(data=>mostrarDatos2(data)).catch(function(err){console.log(err);});
+
+		}else{
+
+			consultaMascotas().then(data=>mostrarDatos(data)).catch(function(err){console.log(err);});
+		}
+			
+	}
+	
+  </script>
+
+</head>
+
+<body onload="recuperaMascotas();">
+
+
+
+  <!-- Main -->
+  <main>
+    <div class="fPaciente">
+      <!-- Video-Formulario -->
+    <div class="card mx-auto" style="background: transparent; border: none">
+       <h5>Buscar Mascotas<h5>
+    </div>
+    
+    <div id="">
+		<form>
+			<fieldset>
+			<label>Nombre Mascota:</label><input type="text" id="idgeneral" name="idgeneral"/>
+			<button type="button" onClick="recuperaMascotas();" id="buscar" >Buscar</button>
+			</fieldset>
+		</form>
+	</div>
+	<div id="bloqueMascota" class="tabla">
+
+	</div>
+
+	<!--<table align="center"-->
+  </main>
+
+</body>
+
+</html>

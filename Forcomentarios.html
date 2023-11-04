@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="user.js"></script>
+	<title></title>
+</head>
+<body onload="option('vetcoment','recuperaDoc.php');">
+	<label>Seleccione el veterianio</label><br>
+	<select id="vetcoment">
+		<option value="0">veterinario</option>
+	</select><br>
+	<label>Comenatrio para el veterinario</label>
+	<input type="text" name="coment" id="coment">
+	<br>
+ <button type="button" onclick="comentV()" >Registar comentario</button><br>
+ <button type="button" onclick="redirecciona('indexhome_user.html')">Regresar</button>
+</body>
+</html>

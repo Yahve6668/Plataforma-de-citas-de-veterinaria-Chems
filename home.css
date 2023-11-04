@@ -1,0 +1,38 @@
+.wrap{
+ width: 100vw;
+ height:  100vh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background: linear-gradient(to right ,rgb(0 0 0/.5),rgb(0 0 0/.5)),
+ url(header.jpg);
+ background-size: cover;
+ background-position: center;
+}
+
+.wrap-texto{
+  color: white;
+  text-align: center;
+  width: 50%;
+}
+.wrap button{
+	display: block;
+	margin: auto ;
+	margin-top: 5px;
+	margin-bottom: 4px;
+	height: 40px;
+	width: 78%;
+	background: transparent;
+	color: black;
+	border-radius: 2px;
+	cursor: pointer;
+	outline: none;
+	border: 2px solid white;
+	transition: all .5s;
+
+}
+.wrap button:hover{
+	color: #white ;
+	border: 2px solid white;
+	background: linear-gradient(white,white);
+}

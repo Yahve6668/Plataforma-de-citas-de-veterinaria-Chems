@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paciente</title>
+
+  <style>
+
+
+
+  </style>
+
+  <!-- Código JavaScript "IMPORTANTE PONER DEFER" -->
+  <script defer> 
+	
+	function clearcontent() {     				
+		document.getElementById(bloqueEspacio).innerHTML = "";
+	}
+
+function recuperaUser(){
+			var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange= function(){
+				if(this.readyState==4 && this.status==200){
+					let select2=document.getElementById('Username');
+                     let xml = xmlhttp.responseText;
+	               	  let a=xml;
+	                  let op=document.createElement('p');
+	                  op.setAttribute("id","nom");
+	                  let texto=document.createTextNode(a);
+	                   op.appendChild(texto);
+	                   select2.appendChild(op);
+
+				   }
+				};
+			xmlhttp.open("POST", "recuperaUser.php", true);
+			xmlhttp.send();
+}
+	async function consultaCitas(){
+	 let response = await fetch('recuperaCitas.php');
+	  	if(response.ok){
+		  	var datos= await response.text();
+			  var data= JSON.parse(datos);
+			  //alert(datos);
+			return data;
+		}
+	}
+
+	
+function mostrarDatos(data){
+
+   var tabla = document.createElement("table");
+   var thead = document.createElement("thead");
+   let fila_titulo = document.createElement('tr');
+   let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdCita";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Fecha de la cita";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Fecha de emisión";
+let campo_4 = document.createElement('th');
+campo_4.innerHTML = "Doctor";
+let campo_5 = document.createElement('th');
+campo_5.innerHTML = "Mascota";
+let campo_6 = document.createElement('th');
+campo_6.innerHTML = "Usuario";
+let campo_7 = document.createElement('th');
+campo_7.innerHTML = "Tipo de cita";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+fila_titulo.appendChild(campo_4);
+fila_titulo.appendChild(campo_5);
+fila_titulo.appendChild(campo_6);
+fila_titulo.appendChild(campo_7);
+		thead.appendChild(fila_titulo);
+
+
+		var tbody = document.createElement("tbody");
+		for(var i=0;i<data.length;i++){
+			
+			let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idCita;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].fechaCita;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].fechaActual;
+let fila_datos_campo_4 = document.createElement('td');
+fila_datos_campo_4.innerHTML = data[i].doctor.nombreDoctor;
+let fila_datos_campo_5 = document.createElement('td');
+fila_datos_campo_5.innerHTML =data[i].mascota.descripcionMascota;
+let fila_datos_campo_6 = document.createElement('td');
+fila_datos_campo_6.innerHTML = data[i].usuario.nombreUsuario;
+let fila_datos_campo_7 = document.createElement('td');
+fila_datos_campo_7.innerHTML = data[i].tipoCita.descripcionTipoCita;
+
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+fila_datos.appendChild(fila_datos_campo_4);
+fila_datos.appendChild(fila_datos_campo_5);
+fila_datos.appendChild(fila_datos_campo_6);
+fila_datos.appendChild(fila_datos_campo_7);
+			console.log(data[i]);
+			tbody.appendChild(fila_datos);
+		}
+		tabla.appendChild(thead);
+		tabla.appendChild(tbody);
+		tabla.setAttribute("border", "2");
+		tabla.setAttribute("align", "center");
+        document.getElementById('bloqueCita').appendChild(tabla);	
+}
+
+function mostrarDatos2(data){
+
+
+var tabla = document.createElement("table");
+
+
+var thead = document.createElement("thead");
+let fila_titulo = document.createElement('tr');
+let campo_1 = document.createElement('th');
+campo_1.innerHTML = "IdCita";
+let campo_2 = document.createElement('th');
+campo_2.innerHTML = "Fecha de la cita";
+let campo_3 = document.createElement('th');
+campo_3.innerHTML = "Fecha de emisión";
+let campo_4 = document.createElement('th');
+campo_4.innerHTML = "Doctor";
+let campo_5 = document.createElement('th');
+campo_5.innerHTML = "Mascota";
+let campo_6 = document.createElement('th');
+campo_6.innerHTML = "Usuario";
+let campo_7 = document.createElement('th');
+campo_7.innerHTML = "Tipo de cita";
+
+fila_titulo.appendChild(campo_1);
+fila_titulo.appendChild(campo_2);
+fila_titulo.appendChild(campo_3);
+fila_titulo.appendChild(campo_4);
+fila_titulo.appendChild(campo_5);
+fila_titulo.appendChild(campo_6);
+fila_titulo.appendChild(campo_7);
+thead.appendChild(fila_titulo);
+
+
+var tbody = document.createElement("tbody");
+for(var i=0;i<data.length;i++){
+	if(document.getElementById("idgeneral").value  == data[i].fechaCita && document.getElementById("idgeneral").value !=null){
+
+	
+	let fila_datos = document.createElement('tr');
+let fila_datos_campo_1 = document.createElement('td');
+fila_datos_campo_1.innerHTML = data[i].idCita;
+let fila_datos_campo_2 = document.createElement('td');
+fila_datos_campo_2.innerHTML = data[i].fechaCita;
+let fila_datos_campo_3 = document.createElement('td');
+fila_datos_campo_3.innerHTML = data[i].fechaActual;
+let fila_datos_campo_4 = document.createElement('td');
+fila_datos_campo_4.innerHTML = data[i].doctor.nombreDoctor;
+let fila_datos_campo_5 = document.createElement('td');
+fila_datos_campo_5.innerHTML =data[i].mascota.descripcionMascota;
+let fila_datos_campo_6 = document.createElement('td');
+fila_datos_campo_6.innerHTML = data[i].usuario.nombreUsuario;
+let fila_datos_campo_7 = document.createElement('td');
+fila_datos_campo_7.innerHTML = data[i].tipoCita.descripcionTipoCita;
+
+fila_datos.appendChild(fila_datos_campo_1);
+fila_datos.appendChild(fila_datos_campo_2);
+fila_datos.appendChild(fila_datos_campo_3);
+fila_datos.appendChild(fila_datos_campo_4);
+fila_datos.appendChild(fila_datos_campo_5);
+fila_datos.appendChild(fila_datos_campo_6);
+fila_datos.appendChild(fila_datos_campo_7);
+	//var p= document.createElement('p');
+	console.log(data[i]);
+	//p.innerHTML=data[i].idProfesor+data[i].nombreProfesor + data[i].departamento.nombreDepartamento;
+	//hilera.appendChild(celda)
+	//tabla.appendChild(p);
+
+	tbody.appendChild(fila_datos);
+	}
+}
+
+
+tabla.appendChild(thead);
+tabla.appendChild(tbody);
+tabla.setAttribute("border", "2");
+tabla.setAttribute("align", "center");
+// Adding the entire table to the body tag
+document.getElementById('bloqueCita').appendChild(tabla);	}
+
+
+
+
+
+
+  
+	function recuperaCitas(){
+			document.getElementById("bloqueCita").innerHTML = "";
+		if(document.getElementById("idgeneral").value !=""){
+			consultaCitas().then(data=>mostrarDatos2(data)).catch(function(err){console.log(err);});
+		}else{
+			consultaCitas().then(data=>mostrarDatos(data)).catch(function(err){console.log(err);});
+		}
+
+
+
+			
+	}	
+	function lanzadera(){
+    recuperaUser();
+    recuperaCitas();
+	}
+  </script>
+<script type="text/javascript" src="user.js"></script>
+</head>
+
+<body  onload="lanzadera()" ;>
+  <!-- Main -->
+<div id="Username">
+      <h1>Veterinario</h1>
+    </div>
+  <main>
+    <div class="fPaciente">
+      <!-- Video-Formulario -->
+    <div class="card mx-auto" style="background: transparent; border: none">
+       <h5>Buscar Citas</h5>
+    </div>
+    
+    <div id="">
+		<form id="form1.data" action="testDao.php"  method="POST" accept-charset="utf-8">
+			<fieldset>
+			<label>Fecha de Cita:</label><input type="date" id="idgeneral" name="idgeneral" min="2021-01-01" max="2022-12-30"/><br/><br/>
+			
+
+
+			<button type="button" onClick="recuperaCitas();" id="buscar" >Guardar
+			</button>
+			</fieldset>
+
+			
+		</form>
+	</div>
+	<div id="bloqueCita" class="tabla">
+	</div>
+    <button type="button" onclick="redirecciona('indexhome_vet.html')">Regresar</button>
+	<!--<table align="center"-->
+  </main>
+
+</body>
+
+</html>
